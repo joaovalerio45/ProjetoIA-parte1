@@ -24,12 +24,18 @@ adjacent(X, Y, X, NY) :- NY is Y + 1, NY =< 4. % Down
 adjacent(X, Y, X, NY) :- NY is Y - 1, NY >= 0. % Up
 
 
-% ir buscar a informacão a 
+% ir buscar a informacão de uma posição específica à route
 get_cell(X, Y, Matrix, CellData) :-
     get_at_index(Y, Matrix, Row),
     get_at_index(X, Row, CellData).
 
 
+find_adjacent_pokemon(X, Y, [Id, Name, Level, NX, NY, Types]) :-
+    adjacent(X, Y, NX, NY),
+    route(Matrix),
+    get_cell(NX, NY, Matrix, (Id, Level)),
+    pokemon(Id, Name, Types).
+
 % TO DO
 next_rooms(X,Y,Rooms) :-
-    route(M).
+    findall(Room, find_adjacent_pokemon(X, Y, Room), Rooms).
