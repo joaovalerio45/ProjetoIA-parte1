@@ -30,6 +30,7 @@ get_cell(X, Y, Matrix, CellData) :-
     get_at_index(X, Row, CellData).
 
 
+% vai buscar a informação do pokemon na posição adjacente na route atual
 find_adjacent_pokemon(X, Y, [Id, Name, Level, NX, NY, Types]) :-
     adjacent(X, Y, NX, NY),
     route(Matrix),

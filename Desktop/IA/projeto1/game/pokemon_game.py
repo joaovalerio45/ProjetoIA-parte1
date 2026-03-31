@@ -34,9 +34,26 @@ class PokemonGame:
 
     def total_attack(self, attacker_types, defender_types):
 
-        # TO DO
+        best_effect = -1.0
+        
+        for a_type in attacker_types:
+            current_effect = 1.0
+            
+            for d_type in defender_types:
+                # Executa a query ao Prolog formulando a string com as variáveis
+                query_result = list(self.prolog.query(f"attack({a_type}, {d_type}, Effect)"))
+                
+                if query_result:
+                    # O pyswip retorna uma lista de dicionários. Extraímos a chave 'Effect'.
+                    effect_value = query_result[0]['Effect']
+                    current_effect *= effect_value
+            
+            # Substitui se o efeito combinado deste ataque for o maior encontrado
+            if current_effect > best_effect:
+                best_effect = current_effect
+                
+        return best_effect
 
-        return 0
 
     # --------------------------------
 
